@@ -20,5 +20,6 @@ router.put("/perfil", auth, perfil.atualizarPerfil);
 
 //produtos
 router.get("/produtos", auth, produtos.listarProdutos);
+router.get("/produtos/:id", auth, produtos.obterProduto);
 
 module.exports = router;

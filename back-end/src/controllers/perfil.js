@@ -11,28 +11,47 @@ const atualizarPerfil = async (req, res) => {
   const { nome, email, senha, nome_loja } = req.body;
   const { usuario } = req;
 
-  if (!nome || !email || !senha || !nome_loja) {
-    return res.status(400).json("Informe todos os campos.");
-  }
-
   try {
-    const usuarios = await db.query("select * from usuarios where email = $1", [
-      email,
-    ]);
+    if (email) {
+      const usuarios = await db.query(
+        "select * from usuarios where email = $1",
+        [email]
+      );
 
-    if (usuarios.rowCount > 0) {
-      return res.status(404).json("O e-mail informado já existe.");
+      if (usuarios.rowCount > 0) {
+        return res
+          .status(404)
+          .json(
+            "O e-mail informado já existe. Refaça a atualização com um email diferente."
+          );
+      }
+
+      await db.query("update usuarios set email = $1  where id = $2", [
+        email,
+        usuario.id,
+      ]);
     }
 
-    const hash = await bcrypt.hash(senha, 10);
+    if (nome) {
+      await db.query("update usuarios set nome = $1 where id = $2", [
+        nome,
+        usuario.id,
+      ]);
+    }
 
-    const usuarioUp = await db.query(
-      "update usuarios set nome = $1, nome_loja = $2, email = $3, senha = $4 where id = $5",
-      [nome, nome_loja, email, hash, usuario.id]
-    );
+    if (senha) {
+      const hash = await bcrypt.hash(senha, 10);
+      await db.query("update usuarios set senha = $1  where id = $2", [
+        hash,
+        usuario.id,
+      ]);
+    }
 
-    if (usuarioUp.rowCount === 0) {
-      return res.status(400).json("Erro ao atualizar usuário.");
+    if (nome_loja) {
+      await db.query("update usuarios set nome_loja = $1  where id = $2", [
+        nome_loja,
+        usuario.id,
+      ]);
     }
 
     res.status(200).json("Usuário atualizado com sucesso.");
