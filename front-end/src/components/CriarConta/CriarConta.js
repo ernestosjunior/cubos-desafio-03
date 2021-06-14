@@ -9,19 +9,20 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const CriarConta = () => {
   const classes = useStyles();
 
+  const history = useHistory();
+
   const { register, handleSubmit } = useForm();
 
+  const [carregando, setCarregando] = useState(false);
+
   const [values, setValues] = useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
     showPassword: false,
   });
 
@@ -33,27 +34,49 @@ const CriarConta = () => {
     event.preventDefault();
   };
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    setCarregando(true);
+    fetch("http://localhost:5000/cadastro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome: data.nome,
+        nome_loja: data.nomeLoja,
+        email: data.email,
+        senha: data.senha,
+      }),
+    }).then(() => history.push("/login"), setCarregando(false));
+  };
+
   return (
-    <>
-      <div>
-        <h1>Criar uma conta</h1>
+    <div className={classes.main}>
+      <div className={classes.container}>
+        <h1 className={classes.titulo}>Criar uma conta</h1>
         <form
-          className={classes.root}
-          noValidate
+          className={(classes.root, classes.formFlex)}
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
         >
           <InputLabel htmlFor="standard-adornment-password">
             Seu nome
           </InputLabel>
-          <Input id="nome" {...register("nome", { required: true })} />
+          <Input required id="nome" {...register("nome", { required: true })} />
           <InputLabel htmlFor="standard-adornment-password">
             Nome da loja
           </InputLabel>
-          <Input id="nome-loja" {...register("nomeLoja", { required: true })} />
+          <Input
+            required
+            id="nome-loja"
+            {...register("nomeLoja", { required: true })}
+          />
           <InputLabel htmlFor="standard-adornment-password">E-mail</InputLabel>
-          <Input id="email" {...register("email", { required: true })} />
+          <Input
+            required
+            id="email"
+            {...register("email", { required: true })}
+          />
           <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
           <Input
             required
@@ -93,20 +116,25 @@ const CriarConta = () => {
             }
             {...register("repetirSenha", { required: true })}
           />
-          <Button
-            className={classes.botao}
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            ENTRAR
-          </Button>
+          <div className={classes.divBotao}>
+            {carregando ? <CircularProgress /> : ""}
+            <Button
+              className={classes.botao}
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              CRIAR CONTA
+            </Button>
+          </div>
         </form>
-        <p>
-          Já possui conta? <Link to="/login">ACESSE</Link>
-        </p>
+        <div className={classes.login}>
+          <p>
+            Já possui conta? <Link to="/login">ACESSE</Link>
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
