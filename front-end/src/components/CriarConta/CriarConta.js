@@ -47,7 +47,10 @@ const CriarConta = () => {
         email: data.email,
         senha: data.senha,
       }),
-    }).then(() => history.push("/login"), setCarregando(false));
+    }).then(() => {
+      setCarregando(false);
+      history.push("/login");
+    });
   };
 
   return (

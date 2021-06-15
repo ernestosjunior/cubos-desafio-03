@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+.Home {
+  display: grid;
+  grid-template-columns: 138px 1fr;
+}
+
+svg {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  padding: 0px 33px;
+  gap: 24px;
+  background: #434343;
+  border-radius: 0px 0px 32px 0px;
+  height: 100vh;
+}
+
+.menu svg:first-child {
+  margin-top: 113px;
+}

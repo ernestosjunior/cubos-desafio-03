@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useStyles from "./style";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useContext } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
@@ -17,6 +17,8 @@ import { TokenContexto } from "../../App";
 const Login = () => {
   const { setToken } = useContext(TokenContexto);
   const classes = useStyles();
+
+  const history = useHistory();
 
   const { register, handleSubmit } = useForm();
 
@@ -41,7 +43,10 @@ const Login = () => {
       body: JSON.stringify({ email: data.email, senha: data.senha }),
     })
       .then((response) => response.json())
-      .then((data) => setToken(data.token))
+      .then((data) => {
+        setToken(data.token);
+        history.push("/");
+      })
       .catch((error) => console.log(error.message));
   };
 
