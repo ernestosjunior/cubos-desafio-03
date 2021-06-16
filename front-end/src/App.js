@@ -6,9 +6,10 @@ import { useLocalStorage } from "react-use";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import RotasAutenticadas from "./components/RotasAutenticadas/RotasAutenticadas";
+import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import CriarConta from "./components/CriarConta/CriarConta";
-import Home from "./components/Home/Home";
+
 import Perfil from "./components/Perfil/Perfil";
 
 export const TokenContexto = createContext();
