@@ -10,18 +10,21 @@ const produtos = require("./controllers/produtos");
 const router = express();
 
 router.post("/cadastro", cadastro.cadastrarUsuario);
+
 router.post("/login", login.login);
 
-//rotas autenticadas
-//perfil
 router.get("/perfil", auth, perfil.obterPerfil);
+
 router.put("/perfil", auth, perfil.atualizarPerfil);
 
-//produtos
 router.get("/produtos", auth, produtos.listarProdutos);
+
 router.get("/produtos/:id", auth, produtos.obterProduto);
+
 router.post("/produtos", auth, produtos.cadastrarProduto);
+
 router.put("/produtos/:id", auth, produtos.atualizarProduto);
+
 router.delete("/produtos/:id", auth, produtos.excluirProduto);
 
 module.exports = router;
