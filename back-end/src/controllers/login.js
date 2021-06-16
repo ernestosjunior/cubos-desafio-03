@@ -1,4 +1,4 @@
-const segredoApi = require("../config/segredo_api");
+const segredoApi = require("../config/secret_api");
 const db = require("../db/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
