@@ -10,8 +10,6 @@
 }
 
 svg {
-  width: 32px;
-  height: 32px;
   cursor: pointer;
 }
 
@@ -21,12 +19,12 @@ svg {
   justify-content: stretch;
   align-items: center;
   padding: 0px 33px;
-  gap: 24px;
+  gap: 38px;
   background: #434343;
   border-radius: 0px 0px 32px 0px;
   height: 100vh;
 }
 
-.menu svg:first-child {
+.menu a:first-child {
   margin-top: 113px;
 }
