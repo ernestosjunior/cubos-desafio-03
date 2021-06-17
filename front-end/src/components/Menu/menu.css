@@ -5,27 +5,22 @@
   font-family: "Roboto", sans-serif;
 }
 
-.Home {
-  display: grid;
-  grid-template-columns: 138px 1fr;
-}
-
 svg {
   cursor: pointer;
 }
 
-.menu {
+.Menu {
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
   align-items: center;
   padding: 0px 33px;
   gap: 38px;
   background: #434343;
   border-radius: 0px 0px 32px 0px;
   height: 100vh;
+  min-width: 138px;
 }
 
-.menu a:first-child {
+.Menu a:first-child {
   margin-top: 113px;
 }

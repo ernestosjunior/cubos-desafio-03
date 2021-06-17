@@ -85,7 +85,15 @@ const cadastrarProduto = async (req, res) => {
   try {
     const produto = await db.query(
       "insert into produtos (usuario_id,nome,estoque,categoria,preco,descricao,imagem) values ($1,$2,$3,$4,$5,$6,$7)",
-      [usuario.id, nome, estoque, categoria, preco, descricao, imagem]
+      [
+        usuario.id,
+        nome,
+        Number(estoque),
+        categoria,
+        Number(preco),
+        descricao,
+        imagem,
+      ]
     );
 
     if (produto.rowCount === 0) {
