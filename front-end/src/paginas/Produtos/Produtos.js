@@ -1,22 +1,23 @@
+import "./produtos.css";
 import useStyles from "./style";
-import Menu from "../../components/Menu/Menu";
-import Card from "../../components/Card/Card";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
+
+import { useEffect, useState, useContext } from "react";
 import { TokenContexto } from "../../App";
 
 import { useHistory } from "react-router";
 
 import Button from "@material-ui/core/Button";
 
-const Home = () => {
+import Menu from "../../components/Menu/Menu";
+import Card from "../../components/Card/Card";
+
+const Produtos = () => {
   const classes = useStyles();
-  const { token, usuario } = useContext(TokenContexto);
+  const { token, usuario, produtos, setProdutos } = useContext(TokenContexto);
   const history = useHistory();
-  const [produtos, setProdutos] = useState([]);
+
   function handleCadastrar() {
-    history.push("/cadastrar-produto");
+    history.push("/produtos-novo");
   }
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => setProdutos(data));
   }, [token]);
+
   return (
     <div className={classes.home}>
       <Menu />
@@ -39,17 +41,19 @@ const Home = () => {
           <h2 className={classes.pagina}>Seus Produtos</h2>
         </div>
         <div className={classes.cards}>
-          {produtos.map((p) => (
-            <Card
-              key={p.id}
-              id={p.id}
-              nome={p.nome}
-              descricao={p.descricao}
-              imagem={p.imagem}
-              estoque={p.estoque}
-              preco={p.preco}
-            />
-          ))}
+          {produtos.map((p) => {
+            return (
+              <Card
+                key={p.id}
+                id={p.id}
+                nome={p.nome}
+                descricao={p.descricao}
+                imagem={p.imagem}
+                estoque={p.estoque}
+                preco={p.preco}
+              />
+            );
+          })}
         </div>
         <hr className={classes.hr} />
         <Button
@@ -65,4 +69,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Produtos;

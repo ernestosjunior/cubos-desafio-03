@@ -7,19 +7,20 @@ export default makeStyles((theme) => ({
     marginLeft: "74px",
   },
   cards: {
-    width: "1200px",
+    width: "1100px",
     display: "flex",
     gap: "24px",
-    marginTop: "37px",
+    marginTop: "18px",
     overflowX: "auto",
   },
   loja: {
-    marginTop: "78px",
+    marginTop: "24px",
   },
   pagina: {
-    marginTop: "65px",
+    marginTop: "47px",
   },
   hr: {
-    marginBottom: "58px",
+    marginBottom: "28px",
+    marginTop: "13px",
   },
 }));

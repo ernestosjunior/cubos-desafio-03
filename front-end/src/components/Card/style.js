@@ -3,8 +3,8 @@ export default makeStyles((theme) => ({
   card: {
     width: 201,
     minWidth: 201,
-    minHeight: 355,
-    marginBottom: 13,
+    maxHeight: 355,
+    marginBottom: "8px",
     position: "relative",
     borderRadius: "24px !important",
   },
@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
   },
   imagem: {
     width: 201,
-    height: 250,
+    height: 220,
   },
   nome: {
     fontSize: "20px",
@@ -49,5 +49,10 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     padding: "17px !important",
+  },
+  dialogContent: {
+    fontSize: "24px",
+    color: "rgba(0, 0, 0, 0.87)",
+    marginBottom: "40px",
   },
 }));

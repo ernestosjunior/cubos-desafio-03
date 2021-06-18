@@ -20,10 +20,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
 import { TokenContexto } from "../../App";
-
 import Progresso from "../../components/Progresso/Progresso";
+
 const Login = () => {
-  const { setToken } = useContext(TokenContexto);
+  const { setToken, setUsuario } = useContext(TokenContexto);
 
   const classes = useStyles();
   const history = useHistory();
@@ -55,10 +55,10 @@ const Login = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log(response.ok);
           response.json().then((data) => {
             setToken(data.token);
-            history.push("/");
+            setUsuario(data.usuario);
+            history.push("/produtos");
           });
         } else {
           setErro(true);
@@ -67,7 +67,9 @@ const Login = () => {
       .catch((error) => {
         console.log(error.message);
       })
-      .finally(() => setCarregando(false));
+      .finally(() => {
+        setCarregando(false);
+      });
   };
 
   return (

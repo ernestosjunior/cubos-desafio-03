@@ -30,9 +30,7 @@ const listarProdutos = async (req, res) => {
     );
 
     if (produtos.rowCount === 0) {
-      return res
-        .status(404)
-        .json("Não foram encontrados produtos deste usuário.");
+      return res.status(404).json([]);
     }
     res.status(200).json(produtos.rows);
   } catch (error) {

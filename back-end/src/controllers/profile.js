@@ -37,7 +37,14 @@ const atualizarPerfil = async (req, res) => {
       return res.status(400).json("Erro ao atualizar usuário.");
     }
 
-    return res.status(200).json("Usuário atualizado com sucesso.");
+    const usuarioEditado = await db.query(
+      "select * from usuarios where id = $1",
+      [usuario.id]
+    );
+
+    delete usuarioEditado.rows[0].senha;
+
+    return res.status(200).json(usuarioEditado.rows[0]);
   } catch (error) {
     return res.status(400).json(error.message);
   }

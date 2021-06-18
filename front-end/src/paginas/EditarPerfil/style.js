@@ -1,30 +1,34 @@
 import { makeStyles } from "@material-ui/core/styles";
+
 export default makeStyles((theme) => ({
-  perfil: {
+  container: {
     display: "flex",
   },
   perfilContainer: {
     marginLeft: "74px",
-    width: "100%",
     marginRight: "109px",
   },
   perfilInputs: {
-    marginTop: "77px",
-    marginBottom: "100px",
+    marginTop: "24px",
+    marginBottom: "34px",
     display: "flex",
     flexDirection: "column",
-    gap: "48px",
+    gap: "34px",
   },
   inputs: {
     width: "392px",
   },
-  botao: {
-    marginTop: "35px",
-  },
+
   loja: {
     marginTop: "24px",
   },
   pagina: {
     marginTop: "37px",
+  },
+  btnsForm: {
+    marginTop: "54px",
+    display: "flex",
+    alignItems: "center",
+    gap: "24px",
   },
 }));

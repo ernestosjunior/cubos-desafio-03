@@ -1,9 +1,7 @@
-import "./menu.css";
-
-import { useHistory, NavLink } from "react-router-dom";
 import { useContext } from "react";
+import { useHistory, NavLink } from "react-router-dom";
 
-import { TokenContexto } from "../../App";
+import "./menu.css";
 
 import { ReactComponent as Store } from "../../assets/store.svg";
 import { ReactComponent as StoreSelecionado } from "../../assets/store-selected.svg";
@@ -11,33 +9,28 @@ import { ReactComponent as User } from "../../assets/user.svg";
 import { ReactComponent as UserSelecionado } from "../../assets/user-selected.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 
+import { TokenContexto } from "../../App";
+
 const Menu = () => {
-  const { removeToken } = useContext(TokenContexto);
+  const { removeToken, removeUsuarioStorage } = useContext(TokenContexto);
 
   const history = useHistory();
 
   function handleClose() {
     removeToken("token");
-    history.push("/login");
+    removeUsuarioStorage("usuario");
+    history.push("/");
   }
 
   const path = window.location.pathname;
 
   return (
     <div className="Menu">
-      <NavLink to="/">
-        {path === "/" || path === "/cadastrar-produto" ? (
-          <StoreSelecionado />
-        ) : (
-          <Store />
-        )}
+      <NavLink to="/produtos">
+        {path.includes("/produtos") ? <StoreSelecionado /> : <Store />}
       </NavLink>
       <NavLink to="/perfil">
-        {path === "/perfil" || path === "/atualizar-perfil" ? (
-          <UserSelecionado />
-        ) : (
-          <User />
-        )}
+        {path.includes("/perfil") ? <UserSelecionado /> : <User />}
       </NavLink>
       <Close width="33" onClick={() => handleClose()} />
     </div>

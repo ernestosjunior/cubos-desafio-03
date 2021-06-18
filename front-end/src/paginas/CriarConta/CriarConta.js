@@ -1,6 +1,8 @@
 import { useState } from "react";
-import useStyles from "./style";
 import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+
+import useStyles from "./style";
 
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,13 +13,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
-
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-
-import { Link, useHistory } from "react-router-dom";
 
 import Progresso from "../../components/Progresso/Progresso";
 
@@ -59,7 +58,7 @@ const CriarConta = () => {
     })
       .then((response) => {
         if (response.ok) {
-          history.push("/login");
+          history.push("/");
         } else {
           setErro(true);
         }
@@ -164,7 +163,7 @@ const CriarConta = () => {
 
         <div className={classes.footer}>
           <p>
-            Já possui conta? <Link to="/login">ACESSE</Link>
+            Já possui conta? <Link to="/">ACESSE</Link>
           </p>
         </div>
       </div>

@@ -1,12 +1,13 @@
-import Menu from "../Menu/Menu";
+import { useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import useStyles from "./style";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { useContext } from "react";
 
 import { TokenContexto } from "../../App";
-import { useHistory } from "react-router-dom";
+import Menu from "../../components/Menu/Menu";
 
 const Perfil = () => {
   const { usuario } = useContext(TokenContexto);
@@ -15,7 +16,7 @@ const Perfil = () => {
   const history = useHistory();
 
   function handleAtualizarPerfil() {
-    history.push("/atualizar-perfil");
+    history.push("/perfil-editar");
   }
 
   return (
