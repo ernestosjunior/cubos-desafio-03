@@ -4,19 +4,20 @@ export default makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "center",
-    padding: "60px",
+    padding: "24px",
   },
   main: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
     width: "392px",
-    height: "562px",
     textAlign: "center",
     backgroundColor: "white",
     borderRadius: "16px",
     gap: "88px",
+    padding: "60px 0px",
   },
+
   form: {
     display: "flex",
     gap: "40px",
@@ -32,5 +33,11 @@ export default makeStyles((theme) => ({
   botao: {
     width: "87px",
     alignSelf: "center",
+  },
+  alerta: {
+    display: "flex",
+    alignItems: "center",
+    padding: "2px 8px !important",
+    fontSize: "10px !important",
   },
 }));

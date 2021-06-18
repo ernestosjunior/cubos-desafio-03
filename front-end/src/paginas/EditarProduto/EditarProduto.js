@@ -12,16 +12,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-
 import { TokenContexto } from "../../App";
 import Menu from "../../components/Menu/Menu";
 import Progresso from "../../components/Progresso/Progresso";
 
 const EditarProduto = () => {
-  const { usuario, token } = useContext(TokenContexto);
+  const { usuario, token, produtos } = useContext(TokenContexto);
 
   const classes = useStyles();
   const history = useHistory();
@@ -143,6 +139,11 @@ const EditarProduto = () => {
             SALVAR ALTERAÇÕES
           </Button>
         </form>
+      </div>
+      <div className={classes.imagem}>
+        {produtos.map((p) => (
+          <img className={classes.imagemProd} src={p.imagem} alt="" />
+        ))}
       </div>
       <Dialog
         open={erro}

@@ -3,6 +3,8 @@ import useStyles from "./style";
 import { useContext, useState } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -17,15 +19,29 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import Alert from "@material-ui/lab/Alert";
 
 import { TokenContexto } from "../../App";
 import Menu from "../../components/Menu/Menu";
 import Progresso from "../../components/Progresso/Progresso";
 
+const schema = yup.object().shape({
+  senha: yup.string(),
+  confirmacaoSenha: yup
+    .string()
+    .oneOf([yup.ref("senha"), null], "As senhas devem ser iguais"),
+});
+
 const EditarPerfil = () => {
   const { usuario, token, setUsuario } = useContext(TokenContexto);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const classes = useStyles();
   const history = useHistory();
 
@@ -150,9 +166,14 @@ const EditarPerfil = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                {...register("repetirSenha")}
+                {...register("confirmacaoSenha")}
               />
             </FormControl>
+            {errors.confirmacaoSenha?.message && (
+              <Alert className={classes.alerta} severity="error">
+                {errors.confirmacaoSenha?.message}
+              </Alert>
+            )}
           </div>
           <div className={classes.btnsForm}>
             <NavLink to="/perfil">CANCELAR</NavLink>

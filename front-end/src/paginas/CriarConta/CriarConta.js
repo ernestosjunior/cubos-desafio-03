@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 
 import useStyles from "./style";
@@ -18,14 +20,32 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
+import Alert from "@material-ui/lab/Alert";
+
 import Progresso from "../../components/Progresso/Progresso";
+
+const schema = yup.object().shape({
+  nome: yup.string().required("Campo nome é obrigatório"),
+  nomeLoja: yup.string().required("Campo nome da loja é obrigatório"),
+  email: yup.string().required("Campo e-mail é obrigatório"),
+  senha: yup.string().required("Campo senha é obrigatório"),
+  confirmacaoSenha: yup
+    .string()
+    .oneOf([yup.ref("senha"), null], "As senhas devem ser iguais"),
+});
 
 const CriarConta = () => {
   const classes = useStyles();
 
   const history = useHistory();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [values, setValues] = useState({
     showPassword: false,
@@ -79,7 +99,6 @@ const CriarConta = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <TextField
-            required
             id="nome"
             label="Seu nome"
             InputLabelProps={{
@@ -87,8 +106,12 @@ const CriarConta = () => {
             }}
             {...register("nome", { required: true })}
           />
+          {errors.nome?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.nome?.message}
+            </Alert>
+          )}
           <TextField
-            required
             id="nomeLoja"
             label="Nome da loja"
             InputLabelProps={{
@@ -96,8 +119,12 @@ const CriarConta = () => {
             }}
             {...register("nomeLoja", { required: true })}
           />
+          {errors.nomeLoja?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.nomeLoja?.message}
+            </Alert>
+          )}
           <TextField
-            required
             id="email"
             label="Email"
             InputLabelProps={{
@@ -105,12 +132,16 @@ const CriarConta = () => {
             }}
             {...register("email", { required: true })}
           />
+          {errors.email?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.email?.message}
+            </Alert>
+          )}
           <FormControl>
             <InputLabel htmlFor="senha" shrink={true}>
               Senha
             </InputLabel>
             <Input
-              required
               id="senha"
               type={values.showPassword ? "text" : "password"}
               endAdornment={
@@ -127,12 +158,17 @@ const CriarConta = () => {
               {...register("senha", { require: true })}
             />
           </FormControl>
+          {errors.senha?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.senha?.message}
+            </Alert>
+          )}
+
           <FormControl>
             <InputLabel htmlFor="senha" shrink={true}>
               Repita a senha
             </InputLabel>
             <Input
-              required
               id="repetirSenha"
               type={values.showPassword ? "text" : "password"}
               endAdornment={
@@ -146,9 +182,15 @@ const CriarConta = () => {
                   </IconButton>
                 </InputAdornment>
               }
-              {...register("senha", { require: true })}
+              {...register("confirmacaoSenha", { require: true })}
             />
           </FormControl>
+          {errors.confirmacaoSenha?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.confirmacaoSenha?.message}
+            </Alert>
+          )}
+
           <Button
             className={classes.botao}
             variant="contained"

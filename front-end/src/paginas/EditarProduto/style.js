@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   container: {
     display: "flex",
+    position: "relative",
   },
   produtosContainer: {
     marginLeft: "74px",
@@ -34,5 +35,15 @@ export default makeStyles((theme) => ({
   },
   pagina: {
     marginTop: "37px",
+  },
+  imagem: {
+    position: "absolute",
+    top: "124px",
+    left: "771px",
+  },
+  imagemProd: {
+    borderRadius: "16px",
+    height: "402px",
+    width: "308px",
   },
 }));

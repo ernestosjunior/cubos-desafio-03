@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 
 import useStyles from "./style";
@@ -19,8 +21,15 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
+import Alert from "@material-ui/lab/Alert";
+
 import { TokenContexto } from "../../App";
 import Progresso from "../../components/Progresso/Progresso";
+
+const schema = yup.object().shape({
+  email: yup.string().required("Informe seu e-mail"),
+  senha: yup.string().required("Informe sua senha"),
+});
 
 const Login = () => {
   const { setToken, setUsuario } = useContext(TokenContexto);
@@ -28,7 +37,13 @@ const Login = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [values, setValues] = useState({
     showPassword: false,
@@ -45,6 +60,7 @@ const Login = () => {
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     setCarregando(true);
     fetch("http://localhost:5000/login", {
       method: "POST",
@@ -82,7 +98,6 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <TextField
-            required
             id="email"
             label="Email"
             InputLabelProps={{
@@ -90,12 +105,16 @@ const Login = () => {
             }}
             {...register("email", { required: true })}
           />
+          {errors.email?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.email?.message}
+            </Alert>
+          )}
           <FormControl>
             <InputLabel htmlFor="senha" shrink={true}>
               Senha
             </InputLabel>
             <Input
-              required
               id="senha"
               type={values.showPassword ? "text" : "password"}
               endAdornment={
@@ -112,6 +131,11 @@ const Login = () => {
               {...register("senha", { require: true })}
             />
           </FormControl>
+          {errors.senha?.message && (
+            <Alert className={classes.alerta} severity="error">
+              {errors.senha?.message}
+            </Alert>
+          )}
           <Button
             className={classes.botao}
             variant="contained"

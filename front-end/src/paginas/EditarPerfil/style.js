@@ -31,4 +31,10 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     gap: "24px",
   },
+  alerta: {
+    display: "flex",
+    alignItems: "center",
+    padding: "2px 8px !important",
+    fontSize: "10px !important",
+  },
 }));

@@ -23,6 +23,7 @@ export default makeStyles((theme) => ({
   imagem: {
     width: 201,
     height: 220,
+    backgroundSize: "cover",
   },
   nome: {
     fontSize: "20px",

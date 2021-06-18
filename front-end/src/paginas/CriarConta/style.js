@@ -3,18 +3,18 @@ export default makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "center",
-    padding: "60px",
+    padding: "24px",
   },
   main: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
     width: "392px",
-    height: "851px",
     textAlign: "center",
     backgroundColor: "white",
     borderRadius: "16px",
-    gap: "88px",
+    gap: "48px",
+    padding: "60px 0px ",
   },
   form: {
     display: "flex",
@@ -31,5 +31,11 @@ export default makeStyles((theme) => ({
   botao: {
     width: "126px",
     alignSelf: "center",
+  },
+  alerta: {
+    display: "flex",
+    alignItems: "center",
+    padding: "2px 8px",
+    fontSize: "10px",
   },
 }));
